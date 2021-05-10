@@ -1,5 +1,6 @@
 package app.miki.mikiso.quiz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -52,10 +53,18 @@ class QuizActivity : AppCompatActivity() {
             checkAnswer(answerButton3.text.toString())
         }
 
-        //次にボタンがタップされたら
+        //次に進むボタンがタップされたら
         nextButton.setOnClickListener {
             //現在のクイズ数と、全問クイズ数が一致するか比較して
             if (quizCount == quizLists.size) {
+                //一緒だったら、結果画面へ移動する準備をする
+                val resultIntent : Intent = Intent(this,ResultActivity::class.java)
+                //クイズ数をセットする
+                resultIntent.putExtra("QuizCount",quizLists.size)
+                //正解数をセットする
+                resultIntent.putExtra("CorrectCount",correctCount)
+                //結果画面に移動する
+                startActivity(resultIntent)
 
             } else {
                 //一緒でなければ、判定(ox)画像を非表示にする
